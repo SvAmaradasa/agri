@@ -7,17 +7,23 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TextFileReducer extends Reducer<Text, Text, Text, Text> {
+public class YearByPraductionReducer extends Reducer<Text, FloatWritable, Text, Text> {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(TextFileReducer.class);
+			.getLogger(YearByPraductionReducer.class);
 
-	public void reducer(Text key, Text value, Context context)
+	public void reducer(Text key, Iterable<FloatWritable> valueList, Context context)
 			throws IOException, InterruptedException {
-
+			float YearlyProductionSum = 0;
+			int count = 0;
+ for (FloatWritable var : valueList) {
+    YearlyProductionSum += var.get();
+    //System.out.println("reducer " + var.get());
+    count++;
 		context.write(key, value);
 
 		logger.debug("Reduced " + key.toString());
 	}
 
+}
 }
