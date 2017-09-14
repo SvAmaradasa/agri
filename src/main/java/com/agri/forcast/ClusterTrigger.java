@@ -57,7 +57,7 @@ public class ClusterTrigger extends Configured implements Tool {
 
         String instanceType = "m1.medium";
 
-        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(01HWZ5n82U3chOkKAI6EUE9XArGQXkC7U3DE4gc7, password);
+        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(key, password);
 
         AmazonElasticMapReduceClient client = new AmazonElasticMapReduceClient(awsCredentials);
         client.setEndpoint("https://elasticmapreduce.us-west-2.amazonaws.com");
