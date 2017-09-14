@@ -1,4 +1,4 @@
-package com.agri.forcast;
+package agri.forcast;
 
  
 
@@ -46,21 +46,19 @@ public class ClusterTrigger extends Configured implements Tool {
 
     private static void deploy(String[] args) {
         String jarLocation = args[1];
-        String ec2KayName = args[2];
-        String subnetId = args[3];
-        final String inputPath = args[4];
-        final String outputPath = args[5];
-        final String key = args[6];
-        final String password = args[7];
-        String s3_bucketname = args[8];
-        String s3_logs = args[9];
+        final String inputPath = args[2];
+        final String outputPath = args[3];
+        final String key = args[4];
+        final String password = args[5];
+        String s3_bucketname = args[6];
+        String s3_logs = args[7];
 
         String instanceType = "m1.medium";
 
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(key, password);
 
         AmazonElasticMapReduceClient client = new AmazonElasticMapReduceClient(awsCredentials);
-        client.setEndpoint("https://elasticmapreduce.us-west-2.amazonaws.com");
+        client.setEndpoint("https://elasticmapreduce.us-east-1.amazonaws.com");
 
         StepFactory stepFactory = new StepFactory();
 
@@ -80,13 +78,10 @@ public class ClusterTrigger extends Configured implements Tool {
                 .withInstanceCount(1)
                 .withKeepJobFlowAliveWhenNoSteps(false)
                 .withTerminationProtected(false)
-                .withEc2KeyName(ec2KayName)
                 .withMasterInstanceType(instanceType)
-                .withSlaveInstanceType(instanceType)
-                .withEc2SubnetId(subnetId);
+                .withSlaveInstanceType(instanceType);
 
-        Tag[] tags = { new Tag("app_name", "seeremr"), new Tag("environment", "stg"), new Tag("team_id", "04"),
-                new Tag("nibiru_unmanaged", "true") };
+        Tag[] tags = { new Tag("app_name", "msc")};
 
         RunJobFlowRequest request = new RunJobFlowRequest().withName("msc-emr" + org.apache.commons.lang.RandomStringUtils.randomAlphanumeric(16))
                 .withVisibleToAllUsers(true)

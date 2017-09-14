@@ -71,7 +71,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.agri.forcast.ClusterTrigger</mainClass>
+                            <mainClass>agri.forcast.ClusterTrigger</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
