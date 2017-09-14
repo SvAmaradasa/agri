@@ -107,6 +107,7 @@ public class ClusterTrigger extends Configured implements Tool {
 
         logger.info("input path: " + inputPath);
         logger.info("output  path: " + outputPath);
+        logger.info("BUcket: " + s3_bucketname);
         
         
         Configuration conf = new Configuration(getConf());

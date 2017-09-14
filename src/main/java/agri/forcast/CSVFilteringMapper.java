@@ -15,13 +15,14 @@ public class CSVFilteringMapper extends Mapper<Text, Text, Text, Text> {
     private ObjectMapper jsonMapper = new ObjectMapper();
     private String targetAppId = "carbon";
 
+    @Override
     public void map(Text key, Text value, Context context) throws IOException, InterruptedException {
         String tupleAppId = getAppId(value);
         String stored = getPublishedDate(value);
         if (mapFunction()) {
             // Write event to context
             context.write(key, value);
-            logger.debug("Mapped: " + key.toString());
+            logger.info("Mapped: " + key.toString());
         }
 
         // else - don't map
